@@ -55,20 +55,22 @@ const Calendar = () => {
     };
 
     return (
-        <FullCalendarStyled>
-            <FullCalendar
-                plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
-                headerToolbar={{
-                    left: "title",
-                    right: "prev,next",
-                }}
-                firstDay={1}
-                eventContent={renderEventContent}
-                dateClick={handleEventClick}
-                events={events}
-            />
-        </FullCalendarStyled>
+        <div className="calendar">
+            <FullCalendarStyled>
+                <FullCalendar
+                    plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
+                    initialView="dayGridMonth"
+                    headerToolbar={{
+                        left: "title",
+                        right: "prev,next",
+                    }}
+                    firstDay={1}
+                    eventContent={renderEventContent}
+                    dateClick={handleEventClick}
+                    events={events}
+                />
+            </FullCalendarStyled>
+        </div>
     );
 };
 

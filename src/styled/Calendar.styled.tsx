@@ -76,6 +76,6 @@ export const FullCalendarStyled = styled.div`
         }
     }
     .fc-media-screen {
-        height: 500px !important;
+        height: 600px !important;
     }
 `;
