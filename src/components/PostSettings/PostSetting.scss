@@ -28,11 +28,16 @@
     .description,
     .dateOfPosting,
     .tags {
+        flex: 1;
         color: darkgray;
         width: 90%;
         margin: 20px auto;
         display: flex;
+        gap: 10px;
         flex-direction: column;
+    }
+    .image {
+        flex: 1;
     }
     .edit {
         margin-bottom: 10px;

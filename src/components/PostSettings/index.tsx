@@ -22,13 +22,13 @@ const PostSetting = () => {
     return (
         <div className={visible ? "postSetting active" : "postSetting"}>
             {data && (
-                <>
+                <div className="container">
                     <h2>Post Setting</h2>
                     <ListImage listImage={data.img} />
                     <Description description={data.desc} />
                     <DateOfPosting dateOfPosting={data.dateOfPosting} />
                     <Tags tags={data.tags} />
-                </>
+                </div>
             )}
         </div>
     );
