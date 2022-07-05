@@ -1,0 +1,47 @@
+.postSetting {
+    flex-direction: column;
+    width: 20%;
+    padding: 20px;
+    background-color: rgba(61, 60, 60, 0.5);
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    transition: all 0.5s ease-in-out;
+    transform: translateX(200px);
+    opacity: 0;
+
+    &.active {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+
+    h2 {
+        text-align: center;
+        color: #fff;
+    }
+
+    .image,
+    .description,
+    .dateOfPosting,
+    .tags {
+        color: darkgray;
+        width: 90%;
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .edit {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .iconEdit {
+            cursor: pointer;
+        }
+    }
+}
