@@ -8,24 +8,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     loading: false,
     error: null,
-    data: {
-        visible: false,
-        dateSetting: 0,
-    },
+    data: null,
 };
 
 const postsSlice = createSlice({
     name: "posts",
     initialState: initialState,
-    reducers: {
-        activePostSetting(state: any, action: any) {
-            state.data.visible = action.payload;
-        },
-        getDataSetting(state: any, action: any) {
-            state.data.dateSetting = action.payload;
-        },
-    },
+    reducers: {},
 });
 
-export const { activePostSetting, getDataSetting } = postsSlice.actions;
+// export const {} = postsSlice.actions;
 export default postsSlice.reducer;

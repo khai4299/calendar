@@ -1,61 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useDispatch, useSelector } from "react-redux";
-import {
-    activePostSetting,
-    getDataSetting,
-} from "../../redux/slices/post-slice";
-import { AppDispatch } from "../../redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 import { FullCalendarStyled } from "../../styled/Calendar.styled";
-const avatar4 = require("../../assets/img4.jpg");
+import { dataFake } from "../../dataFake/dataFake";
 
-const Calendar = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const dataSettting = useSelector((state: any) => state.post);
-    const [events, setEvents] = useState<any>([]);
-    const [dateSelected, setDateSelected] = useState<any>();
+const Calendar = React.memo(
+    ({
+        setActivePost,
+        setDateSetting,
+        events,
+        setEvents,
+        dateSelected,
+        setDateSelected,
+        dateOfUser,
+        setDateOfUser,
+    }: any) => {
+        const user: any = useSelector((state: RootState) => state.user.user);
+        useEffect(() => {
+            if (user) {
+                const data: any = dataFake.find(
+                    (_: any) => _.users.id === user.id
+                );
+                let eventsRes: any = [];
+                data.dates.forEach((date: any) => {
+                    eventsRes = [
+                        ...eventsRes,
+                        {
+                            date: date.dateStr,
+                            img: date.events.imgs[0].src,
+                            desc: date.events.desc,
+                        },
+                    ];
+                });
+                setEvents(eventsRes);
+                setDateOfUser(data.dates);
+            }
+        }, [user, setDateOfUser, setEvents]);
 
-    function createEvent(e: any) {
-        const event: any = {
-            date: e.dateStr,
-            backgroundColor: "transparent",
-            img: avatar4,
+        const renderEventContent = (eventInfo: any) => {
+            const props = eventInfo.event.extendedProps;
+            return <img src={props.img} alt="" />;
         };
-        setEvents([...events, event]);
-    }
 
-    const renderEventContent = (eventInfo: any) => {
-        const props = eventInfo.event.extendedProps;
-        return <img src={props.img} alt="" />;
-    };
-
-    const handleEventClick = (e: any) => {
-        e.jsEvent.preventDefault();
-
-        if (dateSelected) {
-            dateSelected.dayEl.style.background = "transparent";
-        }
-        if (dateSelected && dateSelected.dateStr === e.dateStr) {
-            dispatch(activePostSetting(false));
-            setDateSelected(null);
-        } else {
-            dispatch(activePostSetting(true));
-            const number = Math.floor(Math.random() * 2) + 1;
-            dispatch(getDataSetting(number));
-            setDateSelected(e);
-            e.dayEl.style.background = `linear-gradient(
+        const handleEventClick = (event: any) => {
+            event.jsEvent.preventDefault();
+            if (dateSelected) {
+                dateSelected.dayEl.style.background = "transparent";
+            }
+            if (dateSelected && dateSelected.dateStr === event.dateStr) {
+                setActivePost(false);
+                setDateSelected(null);
+            } else {
+                const daySelect = dateOfUser.find(
+                    (_: any) => _.dateStr === event.dateStr
+                );
+                setActivePost(true);
+                setDateSetting(daySelect);
+                setDateSelected(event);
+                event.dayEl.style.background = `linear-gradient(
                 180deg,
                 rgb(152, 99, 206, 0.5) 0%,
                 rgb(99, 75, 255, 0.5) 100%
             )`;
-        }
-    };
-
-    return (
-        <div className="calendar">
+            }
+        };
+        return (
             <FullCalendarStyled>
                 <FullCalendar
                     plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
@@ -70,8 +83,8 @@ const Calendar = () => {
                     events={events}
                 />
             </FullCalendarStyled>
-        </div>
-    );
-};
+        );
+    }
+);
 
 export default Calendar;

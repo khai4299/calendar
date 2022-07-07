@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FullCalendarStyled = styled.div`
-    overflow: hidden;
+    margin-top: auto;
     a {
         color: #fff;
         border: none;
@@ -77,5 +77,9 @@ export const FullCalendarStyled = styled.div`
     }
     .fc-media-screen {
         height: 600px !important;
+    }
+    .fc-daygrid-day-number {
+        top: 10px;
+        right: 10px;
     }
 `;

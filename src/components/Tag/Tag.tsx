@@ -2,7 +2,7 @@ import React from "react";
 import { isEqual } from "lodash";
 import styled from "styled-components";
 
-const ButtonStyled = styled.button<Props>`
+const TagStyled = styled.button<Props>`
     font-family: "Raleway", sans-serif;
     background: ${(props) => props.backgroundColor};
     display: flex;
@@ -15,9 +15,9 @@ const ButtonStyled = styled.button<Props>`
     padding: ${(props) => props.padding};
     gap: 10px;
     margin: ${(props) => props.margin};
-    cursor: pointer;
 
     .icon {
+        cursor: pointer;
         font-size: 18px;
     }
 `;
@@ -30,10 +30,9 @@ interface Props {
     backgroundColor: string;
     margin?: string;
     onClick?: () => void;
-    type?: "button" | "submit" | "reset" | undefined;
 }
 
-const Button: React.FC<Props> = React.memo(
+const Tag: React.FC<Props> = React.memo(
     ({
         color,
         padding,
@@ -42,23 +41,21 @@ const Button: React.FC<Props> = React.memo(
         backgroundColor,
         margin,
         onClick,
-        type,
     }: Props) => {
         return (
-            <ButtonStyled
+            <TagStyled
                 padding={padding}
                 color={color}
                 alignItems={alignItems}
                 backgroundColor={backgroundColor}
                 margin={margin}
                 onClick={onClick}
-                type={type}
             >
                 {children}
-            </ButtonStyled>
+            </TagStyled>
         );
     },
     isEqual
 );
 
-export default Button;
+export default Tag;
